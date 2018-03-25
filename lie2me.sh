@@ -9,22 +9,15 @@ then
      exit 1
 fi
 
-ioc1="system("
+ioc1="system\("
 ioc2="executable"
-ioc3="call("
+ioc3="call\("
 ioc4="shell=True"
-ioc5="popen("
+ioc5="popen\("
+ioc6="Popen\("
 
 #grep in code
-grep -nHr $ioc1 $1
-grep -nHr $ioc2 $1
-grep -nHr $ioc3 $1
-grep -nHr $ioc4 $1
-grep -nHir $ioc5 $1
+egrep -nHr --color=always "$ioc1|$ioc2|$ioc3|$ioc4|$ioc5|$ioc6" $1
 
 #grep in compiled code
-find $1 -name "*.pyc" -exec strings {} \; |grep $ioc1
-find $1 -name "*.pyc" -exec strings {} \; |grep $ioc2
-find $1 -name "*.pyc" -exec strings {} \; |grep $ioc3
-find $1 -name "*.pyc" -exec strings {} \; |grep $ioc4
-find $1 -name "*.pyc" -exec strings {} \; |grep -i $ioc5
+find $1 -name "*.pyc" -exec strings {} \; |egrep --color=always "$ioc1|$ioc2|$ioc3|$ioc4|$ioc5|$ioc6" 
